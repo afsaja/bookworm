@@ -1,0 +1,73 @@
+<div class="page-header">
+  <h1>
+    Books
+    <a href="/books/new" class="btn btn-lg btn-success">New Book</a>
+  </h1>
+</div>
+
+<% @books.each do |book| %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <a href="/books/<%= book.id %>"><%= book.title %></a>
+          <small>
+            was added
+            <%= time_ago_in_words(book.created_at) %>
+            ago
+          </small>
+        </h3>
+      </div>
+      <div class="panel-body">
+
+        <a href="/books/<%= book.id %>">
+          <img src="<%= book.image_url %>" class="img-responsive">
+        </a>
+
+        <hr>
+
+
+        <ul class="media-list">
+          <% book.comments.each do |comment| %>
+          <li class="media">
+            <div class="media-body">
+              <h6 class="media-heading">
+
+                <a href="/users/<%= comment.user_id %>"><%= User.find(comment.user_id).username %></a>
+                <small>
+                  <%= time_ago_in_words(comment.created_at) %>
+                </small>
+              </h6>
+              <%= comment.body %>
+            </div>
+          </li>
+          <% end %>
+          <li class="media">
+            <div class="media-body">
+              <form action="/create_comment" method="post">
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+
+                <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+                <!-- Label and input for body -->
+                <div class="form-group">
+                  <label for="body" class="sr-only">
+                    Body
+                  </label>
+
+                  <input type="text" id="body" name="body" placeholder="Add a comment..." class="form-control" required>
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

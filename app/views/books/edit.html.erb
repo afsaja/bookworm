@@ -1,0 +1,82 @@
+<!-- Validation failure messages -->
+<% if @book.errors.any? %>
+  <% @book.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Book #<%= @book.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_book/<%= @book.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for title -->
+      <div class="form-group">
+        <label for="title" class="control-label">
+          Title
+        </label>
+
+        <input type="text" id="title" name="title" placeholder="Title" class="form-control" value="<%= @book.title %>">
+      </div>
+
+      <!-- Label and input for image_url -->
+      <div class="form-group">
+        <label for="image_url" class="control-label">
+          Image url
+        </label>
+
+        <input type="text" id="image_url" name="image_url" placeholder="Image url" class="form-control" value="<%= @book.image_url %>">
+      </div>
+
+      <!-- Label and input for author_id -->
+      <div class="form-group">
+        <label for="author_id" class="control-label">
+          Author
+        </label>
+
+        <input type="text" id="author_id" name="author_id" placeholder="Author" class="form-control" value="<%= @book.author_id %>">
+      </div>
+
+      <!-- Label and input for description -->
+      <div class="form-group">
+        <label for="description" class="control-label">
+          Description
+        </label>
+
+        <textarea id="description" name="description" placeholder="Description" class="form-control" rows="3"><%= @book.description %></textarea>
+      </div>
+
+      <!-- Label and input for length -->
+      <div class="form-group">
+        <label for="length" class="control-label">
+          Length
+        </label>
+
+        <input type="text" id="length" name="length" placeholder="Length" class="form-control" value="<%= @book.length %>">
+      </div>
+
+      <!-- Label and input for year -->
+      <div class="form-group">
+        <label for="year" class="control-label">
+          Year
+        </label>
+
+        <input type="text" id="year" name="year" placeholder="Year" class="form-control" value="<%= @book.year %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Book
+      </button>
+      or
+      <a href="/books/<%= @book.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

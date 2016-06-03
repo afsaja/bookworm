@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h3>Favorite #<%= @favorite.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <dt>User</dt>
+      <dd><%= @favorite.user.username %></dd>
+
+      <dt>Title</dt>
+      <dd><%= @favorite.book.title %></dd>
+
+      <dt>Image</dt>
+      <dd><img src="<%= @favorite.book.image_url %>" class="img-responsive"></dd>
+
+      <dt>Number of Pages</dt>
+      <dd><%= @favorite.book.length %></dd>
+
+      <dt>Author</dt>
+      <dd><%= Author.find(@favorite.book.author_id).name %></dd>
+
+      <dt>Year</dt>
+      <dd><%= @favorite.book.year %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/favorites" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/favorites/<%= @favorite.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_favorite/<%= @favorite.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
